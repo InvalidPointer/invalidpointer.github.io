@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Chillax Shop Helper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      /* Light theme colors - Soft Pastel Palette */
+      --bg-primary: #fef7ff;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #fdf4ff;
+      --bg-card: #ffffff;
+      --bg-input: #fef7ff;
+      --bg-button: #d8b4fe;
+      --bg-button-hover: #c084fc;
+      --bg-accent: #fbbf24;
+      --bg-success: #86efac;
+      
+      --text-primary: #374151;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --text-accent: #a855f7;
+      --text-white: #ffffff;
+      
+      --border-color: #f3e8ff;
+      --border-focus: #d8b4fe;
+      --shadow-sm: 0 1px 3px 0 rgba(168, 85, 247, 0.08), 0 1px 2px 0 rgba(168, 85, 247, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(168, 85, 247, 0.08), 0 2px 4px -1px rgba(168, 85, 247, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(168, 85, 247, 0.08), 0 4px 6px -2px rgba(168, 85, 247, 0.03);
+      --shadow-xl: 0 20px 25px -5px rgba(168, 85, 247, 0.08), 0 10px 10px -5px rgba(168, 85, 247, 0.03);
+      
+      --radius-sm: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.25rem;
+      --radius-2xl: 2rem;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #1a1a1a;
+      --bg-secondary: #2a2a2a;
+      --bg-tertiary: #333333;
+      --bg-card: #2a2a2a;
+      --bg-input: #333333;
+      --bg-button: #8b7fb8;
+      --bg-button-hover: #9d91c7;
+      
+      --text-primary: #e5e5e5;
+      --text-secondary: #b8b8b8;
+      --text-muted: #888888;
+      --text-accent: #b8a9d9;
+      
+      --border-color: #404040;
+      --border-focus: #8b7fb8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: var(--bg-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: all 0.15s ease;
+    }
+
+    body {
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05) rotate(10deg);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .theme-toggle i {
+      font-size: 1.3rem;
+      color: var(--text-accent);
+    }
+
+    #mainwrap {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-xl);
+      padding: 3rem;
+      border: 2px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--text-accent);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .header h1::after {
+      content: '✨';
+      position: absolute;
+      top: -10px;
+      right: -20px;
+      font-size: 1.5rem;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    }
+
+    .subtitle {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      padding: 1.25rem 2.5rem;
+      border-radius: var(--radius-xl);
+      font-size: 1.1rem;
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .subtitle::before {
+      content: '🌸';
+      position: absolute;
+      top: -8px;
+      left: 20px;
+      background: var(--bg-secondary);
+      padding: 0 8px;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .input-group label i {
+      color: var(--text-accent);
+      font-size: 1.1rem;
+    }
+
+    textarea {
+      width: 100%;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-color);
+      background: var(--bg-input);
+      color: var(--text-primary);
+      padding: 1.25rem;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Fix textarea resize handle in dark mode */
+    textarea::-webkit-resizer {
+      background: var(--border-color);
+      border-radius: 0 0 var(--radius-lg) 0;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px rgba(216, 180, 254, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .cards {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+
+    .cardtype {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.5rem;
+      border: 2px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cardtype::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706);
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .cardtype:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cardtype strong {
+      color: var(--text-accent);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    .cardtype span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .userblock {
+      margin-bottom: 2.5rem;
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--border-color);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .userblock::before {
+      content: '💖';
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      background: var(--bg-secondary);
+      padding: 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .userblock:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .userhead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .username {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-accent);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .username::before {
+      content: '🌟';
+      font-size: 1.2rem;
+    }
+
+    .usertypes {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: var(--bg-tertiary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .usersum {
+      background: var(--bg-success);
+      color: var(--text-primary);
+      border-radius: var(--radius-lg);
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: var(--shadow-md);
+      border: 2px solid #65a30d;
+    }
+
+    .usersum::before {
+      content: '💰';
+      font-size: 1.4rem;
+    }
+
+    .usertable {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .usertable th,
+    .usertable td {
+      padding: 1.25rem;
+      text-align: left;
+    }
+
+    .userthead th {
+      background: var(--bg-button);
+      color: var(--text-white);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+    }
+
+    .usertbody td {
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .usertbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .usertbody tr:hover {
+      background: var(--bg-input);
+    }
+
+    .usertablescroll {
+      overflow-x: auto;
+    }
+
+    .totals {
+      background: var(--bg-card);
+      border: 3px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin: 3rem auto;
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-accent);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .totals::before {
+      content: '🎀';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-secondary);
+      padding: 0 12px;
+      font-size: 1.5rem;
+    }
+
+    .export-box-wrap {
+      margin: 3rem auto;
+      max-width: 600px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .export-box-wrap::before {
+      content: '📝';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      background: var(--bg-secondary);
+      padding: 0 8px;
+      font-size: 1.3rem;
+    }
+
+    .export-box-wrap:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-2px);
+    }
+
+    .export-box-label {
+      color: var(--text-accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .export-box-row {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .export-box-ta {
+      flex: 1;
+      height: 90px;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-color);
+      padding: 1.25rem;
+      background: var(--bg-input);
+      color: var(--text-primary);
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    .export-box-ta::-webkit-resizer {
+      background: var(--border-color);
+      border-radius: 0 0 var(--radius-lg) 0;
+    }
+
+    .export-box-ta:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 4px rgba(216, 180, 254, 0.15);
+    }
+
+    .export-box-copy {
+      padding: 1.25rem 2rem;
+      background: var(--bg-button);
+      color: var(--text-white);
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .export-box-copy:hover {
+      background: var(--bg-button-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .export-box-copy:active {
+      transform: translateY(0);
+    }
+
+    .export-box-copied-msg {
+      color: #10b981;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: fadeInOut 0.8s ease-in-out;
+    }
+
+    .footer {
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 2px solid var(--border-color);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .footer::before {
+      content: '🌈';
+      margin-right: 0.75rem;
+      font-size: 1.2rem;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; transform: translateY(10px); }
+      50% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      #mainwrap {
+        margin: 1rem;
+        padding: 2rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .inputs {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .cards {
+        gap: 1rem;
+      }
+
+      .cardtype {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+      }
+
+      .export-box-row {
+        flex-direction: column;
+      }
+
+      .export-box-copy {
+        align-self: flex-start;
+      }
+
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-accent);
+      border-radius: var(--radius-md);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-focus);
+    }
+
+    /* Selection */
+    ::selection {
+      background: rgba(216, 180, 254, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon" id="theme-icon"></i>
+  </div>
+
+  <div id="mainwrap">
+    <div class="header">
+      <h1>💳 Chillax Shop Helper</h1>
+      <div class="subtitle">
+        <i class="fas fa-info-circle"></i>
+        Вставьте данные и пользователей. Все строки пользователей автоматически включаются в результат экспорта.
+      </div>
+    </div>
+
+    <div class="inputs">
+      <div class="input-group">
+        <label><i class="fas fa-users"></i> Пользователи (по одному на строку):</label>
+        <textarea id="usersInput" rows="3" placeholder="@username1&#10;@username2"></textarea>
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-database"></i> Исходные данные:</label>
+        <textarea id="dataInput" rows="8" placeholder="Вставьте данные о заказах..."></textarea>
+      </div>
+    </div>
+
+    <div class="cards" id="pricing"></div>
+
+    <div class="totals" id="totals"></div>
+
+    <div class="export-box-wrap">
+      <div class="export-box-label">
+        Текст-экспорт всех строк пользователей (<span id="export-count">0</span> строк):
+      </div>
+      <div class="export-box-row">
+        <textarea class="export-box-ta" readonly id="exportTxt" placeholder="Результат экспорта появится здесь..."></textarea>
+        <button class="export-box-copy" id="copyBtn">
+          <i class="fas fa-copy"></i>
+          Копировать
+        </button>
+      </div>
+      <div class="export-box-copied-msg" id="copyMsg" style="display:none">
+        <i class="fas fa-check"></i>
+        Скопировано!
+      </div>
+    </div>
+
+    <div id="results"></div>
+
+    <div class="footer">
+      Made with love for K-pop community
+    </div>
+  </div>
+
+  <script>
+    // Theme management
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      const currentTheme = html.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        html.removeAttribute('data-theme');
+        themeIcon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load saved theme
+    function loadTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('theme-icon');
+      
+      if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.className = 'fas fa-sun';
+      }
+    }
+
+    function setDefaultInputs(){
+      usersInput.value = "@username1\n@username2";
+      dataInput.value = "Вставьте пост с оплатой...";
+    }
+
+    const usersInput = document.getElementById("usersInput");
+    const dataInput = document.getElementById("dataInput");
+    const pricingDiv = document.getElementById("pricing");
+    const resultsDiv = document.getElementById("results");
+    const totalsDiv = document.getElementById("totals");
+    const exportTxt = document.getElementById("exportTxt");
+    const exportCount = document.getElementById("export-count");
+    const copyBtn = document.getElementById("copyBtn");
+    const copyMsg = document.getElementById("copyMsg");
+
+    setDefaultInputs();
+
+    function parseData(raw, usernamesToTrack) {
+      const accSec = /учеты:\s+((?:[^\n]+\n?)+)/m.exec(raw);
+      if (!accSec) return {error: "Не найдена секция 'учеты'."};
+      const accLines = accSec[1].trim().split('\n').map(x=>x.trim()).filter(Boolean);
+
+      const prices = {};
+      accLines.forEach(line=>{
+        const m = /^(\d+)\s*([^\d]+)\s*-\s*(\d+)[р₽]/.exec(line);
+        if (m) {
+          prices[m[2].trim()] = +m[3].trim();
+        }
+      });
+      if (Object.keys(prices).length===0) return {error: "В разделе 'учеты' нет цен карт."};
+
+      const userInfo = {};
+      usernamesToTrack.forEach(u=>{
+        userInfo[u] = { total_money:0, entries:[], count:{}};
+        Object.keys(prices).forEach(k => userInfo[u].count[k]=0);
+      });
+
+      const usernamesPattern = usernamesToTrack.map(u=>u.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join('|');
+      const cardTypesPattern = Object.keys(prices).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join('|');
+      const regexp = new RegExp(`(\\d+)\\.?\\s+(${usernamesPattern})\\s*-\\s*((?:\\d+(${cardTypesPattern})\\+?)*)`, "g");
+
+      let curGroup = "Без группы";
+      let lineNum = 0;
+      raw.split('\n').forEach(line=>{
+        lineNum++;
+        const groupMatch = line.match(/^#(\S+)/);
+        if(groupMatch) curGroup = line.trim();
+
+        let m;
+        while(m=regexp.exec(line)){
+          const entryLine = parseInt(m[1]);
+          const username = m[2];
+          const cardEntries = m[3].trim();
+          let totalItems = [], lineTotalMoney = 0;
+
+          cardEntries.split('+').filter(Boolean).forEach(entry=>{
+            const cardM = /(\d+)([^\d\s]+)/.exec(entry);
+            if(cardM){
+              const n = +cardM[1], type=cardM[2].trim();
+              if(!prices[type]) return;
+              const money = n*prices[type];
+              lineTotalMoney += money;
+              totalItems.push(`${n}${type}`);
+              userInfo[username].count[type]+=n;
+            }
+          });
+          userInfo[username].total_money += lineTotalMoney;
+          const entryRec = {
+            line_number: entryLine,
+            line_id: entryLine+"_"+curGroup+"_"+username,
+            items: totalItems.join("+"),
+            group: curGroup,
+            amount: lineTotalMoney,
+            username,
+            tableIndex: userInfo[username].entries.length,
+            origLine: line.trim()
+          };
+          userInfo[username].entries.push(entryRec);
+        }
+      });
+
+      return {prices, userInfo};
+    }
+
+    function renderPricing(prices){
+      pricingDiv.innerHTML = "";
+      Object.entries(prices).forEach(([type, price])=>{
+        let n = document.createElement("div");
+        n.className = "cardtype";
+        n.innerHTML = `<strong>${type}</strong> <span>(${price} р)</span>`;
+        pricingDiv.appendChild(n);
+      });
+    }
+
+    function numberFormat(n) {
+      return (n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");
+    }
+
+    function renderUsersTables(userInfo){
+      resultsDiv.innerHTML = "";
+      let total_sum = 0;
+      for(const [username, info] of Object.entries(userInfo)) {
+        total_sum += info.total_money;
+        let div = document.createElement('div');
+        div.className = "userblock";
+        let types = Object.entries(info.count).filter(([t,c])=>c>0).map(([t,c])=>`${c}${t}`).join(", ");
+        
+        div.innerHTML = `
+          <div class="userhead">
+            <div class="username">${username}</div>
+            <div class="usertypes">${types}</div>
+          </div>
+          <div class="usersum">${numberFormat(info.total_money)} р</div>
+        `;
+        
+        let tableWrap = document.createElement('div'); 
+        tableWrap.className = "usertablescroll";
+        let table = document.createElement('table');
+        table.className = "usertable";
+        table.innerHTML = `
+          <thead class="userthead">
+            <tr>
+              <th><i class="fas fa-hashtag"></i> #</th>
+              <th><i class="fas fa-layer-group"></i> Группа</th>
+              <th><i class="fas fa-credit-card"></i> Карты</th>
+              <th><i class="fas fa-ruble-sign"></i> Сумма</th>
+            </tr>
+          </thead>
+          <tbody class="usertbody"></tbody>
+        `;
+        
+        info.entries.forEach((entry, idx)=>{
+          let tr = document.createElement('tr');
+          tr.className = "userline";
+          tr.setAttribute('data-user', username);
+          tr.setAttribute('data-id', entry.line_id);
+          tr.setAttribute('data-table-index', entry.tableIndex);
+          tr.tabIndex = 0;
+          tr.innerHTML = `<td>${entry.line_number}</td>
+            <td>${entry.group}</td>
+            <td>${entry.items}</td>
+            <td style="color:#14b8a6;font-weight:700">${numberFormat(entry.amount)} р</td>`;
+          table.querySelector('tbody').appendChild(tr);
+        });
+        tableWrap.appendChild(table);
+        div.appendChild(tableWrap);
+        resultsDiv.appendChild(div);
+      }
+      totalsDiv.textContent = `Общая сумма по всем пользователям: ${numberFormat(total_sum)} р`;
+    }
+
+    function renderExportTextBox(userInfo) {
+      const usernames = usersInput.value.split("\n").map(x=>x.trim()).filter(Boolean);
+
+      // Собрать результат по формату: line_numbers, enter, user, enter, ...
+      let count = 0;
+      let results = [];
+      for (let user of usernames) {
+        let entries = (userInfo && userInfo[user]) ? userInfo[user].entries : [];
+        const nums = entries.map(e => e.line_number).filter(Boolean);
+        if(nums.length) {
+          results.push(nums.join(", "));
+          results.push("");
+          results.push(user);
+          count += nums.length;
+        }
+      }
+      exportTxt.value = results.join("\n");
+      exportCount.textContent = count;
+    }
+
+    function rerender(){
+      let usernames = usersInput.value.split("\n").map(x=>x.trim()).filter(Boolean);
+      let raw = dataInput.value;
+      let parsed = parseData(raw, usernames);
+
+      if(parsed.error){
+        pricingDiv.innerHTML = `<span style="color:#be123c;font-size:1.12em">${parsed.error}</span>`;
+        resultsDiv.innerHTML = "";
+        totalsDiv.textContent="";
+        exportTxt.value = "";
+        exportCount.textContent = "0";
+        return;
+      }
+      renderPricing(parsed.prices);
+      renderUsersTables(parsed.userInfo);
+      renderExportTextBox(parsed.userInfo);
+    }
+
+    usersInput.addEventListener("input", rerender);
+    dataInput.addEventListener("input", rerender);
+
+    copyBtn.addEventListener("click", function(){
+      exportTxt.select();
+      try {
+        document.execCommand("copy");
+        copyMsg.style.display = "";
+        setTimeout(()=>copyMsg.style.display="none",1200);
+      } catch(e) {
+        copyMsg.textContent = "Не удалось скопировать.";
+        copyMsg.style.display = "";
+      }
+    });
+
+    // Load theme on page load
+    loadTheme();
+
+    // Initialize
+    rerender();
+  </script>
+</body>
+</html>
