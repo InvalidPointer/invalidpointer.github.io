@@ -7,708 +7,995 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
     :root {
-      /* Light theme colors - Soft Pastel Palette */
-      --bg-primary: #fef7ff;
-      --bg-secondary: #ffffff;
-      --bg-tertiary: #fdf4ff;
-      --bg-card: #ffffff;
-      --bg-input: #fef7ff;
-      --bg-button: #d8b4fe;
-      --bg-button-hover: #c084fc;
-      --bg-accent: #fbbf24;
-      --bg-success: #86efac;
-      
-      --text-primary: #374151;
-      --text-secondary: #6b7280;
-      --text-muted: #9ca3af;
-      --text-accent: #a855f7;
-      --text-white: #ffffff;
-      
-      --border-color: #f3e8ff;
-      --border-focus: #d8b4fe;
-      --shadow-sm: 0 1px 3px 0 rgba(168, 85, 247, 0.08), 0 1px 2px 0 rgba(168, 85, 247, 0.04);
-      --shadow-md: 0 4px 6px -1px rgba(168, 85, 247, 0.08), 0 2px 4px -1px rgba(168, 85, 247, 0.04);
-      --shadow-lg: 0 10px 15px -3px rgba(168, 85, 247, 0.08), 0 4px 6px -2px rgba(168, 85, 247, 0.03);
-      --shadow-xl: 0 20px 25px -5px rgba(168, 85, 247, 0.08), 0 10px 10px -5px rgba(168, 85, 247, 0.03);
-      
-      --radius-sm: 0.5rem;
-      --radius-md: 0.75rem;
-      --radius-lg: 1rem;
-      --radius-xl: 1.25rem;
-      --radius-2xl: 2rem;
+      --bg: #fff7fa;
+      --bg-grid: rgba(231, 95, 121, 0.08);
+      --surface: #ffffff;
+      --surface-soft: #fff0f5;
+      --surface-sky: #edf7ff;
+      --input: #fffafb;
+      --line: #f3cad8;
+      --line-strong: #e7b4c4;
+      --text: #253447;
+      --text-soft: #68788d;
+      --text-muted: #8b7783;
+      --rose: #e75f79;
+      --rose-hover: #d94b67;
+      --rose-deep: #bd3554;
+      --sky: #4f91c7;
+      --sky-deep: #2f6f9b;
+      --sky-line: #bcdcf3;
+      --danger: #be3454;
+      --danger-soft: #fff0f3;
+      --shadow-sm: 0 2px 8px rgba(97, 53, 66, 0.06);
+      --shadow-md: 0 12px 34px rgba(97, 53, 66, 0.1);
+      --shadow-lg: 0 24px 60px rgba(97, 53, 66, 0.14);
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
     }
 
     [data-theme="dark"] {
-      --bg-primary: #1a1a1a;
-      --bg-secondary: #2a2a2a;
-      --bg-tertiary: #333333;
-      --bg-card: #2a2a2a;
-      --bg-input: #333333;
-      --bg-button: #8b7fb8;
-      --bg-button-hover: #9d91c7;
-      
-      --text-primary: #e5e5e5;
-      --text-secondary: #b8b8b8;
-      --text-muted: #888888;
-      --text-accent: #b8a9d9;
-      
-      --border-color: #404040;
-      --border-focus: #8b7fb8;
+      --bg: #17191f;
+      --bg-grid: rgba(240, 120, 143, 0.08);
+      --surface: #20242b;
+      --surface-soft: #2a2028;
+      --surface-sky: rgba(79, 145, 199, 0.16);
+      --input: #191d23;
+      --line: #3d343d;
+      --line-strong: #58424d;
+      --text: #f5e9ee;
+      --text-soft: #c6b8c1;
+      --text-muted: #9d929b;
+      --rose: #f0788f;
+      --rose-hover: #ff879d;
+      --rose-deep: #ff9aae;
+      --sky: #7eb7e6;
+      --sky-deep: #a6d2f2;
+      --sky-line: #45697f;
+      --danger: #ff8fa3;
+      --danger-soft: rgba(240, 120, 143, 0.14);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.18);
+      --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.24);
+      --shadow-lg: 0 26px 70px rgba(0, 0, 0, 0.3);
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
-    html, body {
-      background: var(--bg-primary);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      color: var(--text-primary);
-      line-height: 1.6;
-      transition: all 0.15s ease;
+    html {
+      min-height: 100%;
+      background: var(--bg);
     }
 
     body {
-      font-size: 16px;
       min-height: 100vh;
+      margin: 0;
+      background:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px),
+        var(--bg);
+      background-size: 34px 34px;
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    button,
+    textarea {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .home-link,
+    .theme-toggle,
+    .export-box-copy {
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
     }
 
     .home-link {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      color: var(--text-accent);
-      background: var(--bg-card);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 0.7rem 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 14px;
+      color: var(--rose-deep);
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      transition: all 0.15s ease;
-    }
-
-    .home-link:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-xl);
     }
 
     .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      background: var(--bg-card);
-      border: 2px solid var(--border-color);
+      width: 44px;
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .home-link:hover,
+    .home-link:focus-visible,
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible,
+    .export-box-copy:hover,
+    .export-box-copy:focus-visible {
+      border-color: var(--rose);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .shell {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .shell {
+      background: rgba(32, 36, 43, 0.84);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 22px;
+      padding: 28px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, var(--surface), var(--surface-soft));
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      color: var(--sky-deep);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      width: 55px;
-      height: 55px;
+      background: var(--rose);
+      box-shadow: 12px 0 0 var(--sky);
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h1 {
       display: flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      box-shadow: var(--shadow-lg);
+      gap: 10px;
+      color: var(--rose-deep);
+      font-size: clamp(2rem, 5vw, 3.15rem);
+      line-height: 1.02;
+      font-weight: 900;
+      letter-spacing: 0;
     }
 
-    .theme-toggle:hover {
-      transform: scale(1.05) rotate(10deg);
-      box-shadow: var(--shadow-xl);
-    }
-
-    .theme-toggle i {
-      font-size: 1.3rem;
-      color: var(--text-accent);
-    }
-
-    #mainwrap {
-      max-width: 1200px;
-      margin: 2rem auto;
-      background: var(--bg-secondary);
-      border-radius: var(--radius-2xl);
-      box-shadow: var(--shadow-xl);
-      padding: 3rem;
-      border: 2px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--text-accent);
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-      position: relative;
-    }
-
-    .header h1::after {
-      content: '✨';
-      position: absolute;
-      top: -10px;
-      right: -20px;
-      font-size: 1.5rem;
-      animation: sparkle 2s ease-in-out infinite;
-    }
-
-    @keyframes sparkle {
-      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
-      50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    .title-mark {
+      color: var(--sky);
+      font-size: 0.74em;
+      transform: translateY(-0.08em);
     }
 
     .subtitle {
-      background: var(--bg-tertiary);
-      color: var(--text-secondary);
-      padding: 1.25rem 2.5rem;
-      border-radius: var(--radius-xl);
-      font-size: 1.1rem;
-      border: 2px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
-      position: relative;
+      max-width: 720px;
+      margin-top: 12px;
+      color: var(--text-soft);
+      font-size: 1rem;
     }
 
-    .subtitle::before {
-      content: '🌸';
-      position: absolute;
-      top: -8px;
-      left: 20px;
-      background: var(--bg-secondary);
-      padding: 0 8px;
-    }
-
-    .inputs {
+    .hero-badge {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2.5rem;
-      margin-bottom: 3rem;
+      gap: 5px;
+      min-width: 156px;
+      border: 1px solid var(--sky-line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-sky);
+      padding: 12px 14px;
+      color: var(--sky-deep);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-badge strong {
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .hero-badge span {
+      color: var(--text-soft);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+      padding: 22px;
+    }
+
+    .input-sheet,
+    .summary-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .input-sheet {
+      grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+    }
+
+    .summary-grid {
+      grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+      align-items: stretch;
+    }
+
+    .panel,
+    .summary-card,
+    .export-box-wrap,
+    .userblock,
+    .state-message {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel,
+    .summary-card,
+    .export-box-wrap {
+      padding: 18px;
     }
 
     .input-group {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      gap: 10px;
+      min-width: 0;
     }
 
-    .input-group label {
-      color: var(--text-primary);
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+    .input-group label,
+    .section-header h2,
+    .export-box-label,
+    .summary-label {
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    .input-group label,
+    .section-header h2,
+    .export-box-label {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 8px;
     }
 
-    .input-group label i {
-      color: var(--text-accent);
-      font-size: 1.1rem;
+    .input-group label i,
+    .section-header h2 i,
+    .export-box-label i,
+    .theme-toggle i {
+      color: var(--rose);
+    }
+
+    .field-hint,
+    .section-note,
+    .summary-meta {
+      color: var(--text-muted);
+      font-size: 0.86rem;
     }
 
     textarea {
       width: 100%;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      border-radius: var(--radius-lg);
-      border: 2px solid var(--border-color);
-      background: var(--bg-input);
-      color: var(--text-primary);
-      padding: 1.25rem;
-      font-size: 0.95rem;
+      min-height: 126px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: var(--input);
+      color: var(--text);
+      padding: 13px 14px;
       resize: vertical;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-sm);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.54);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
     }
 
-    /* Fix textarea resize handle in dark mode */
+    #dataInput {
+      min-height: 206px;
+    }
+
+    textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.82;
+    }
+
     textarea::-webkit-resizer {
-      background: var(--border-color);
-      border-radius: 0 0 var(--radius-lg) 0;
+      background: var(--line);
+      border-radius: 0 0 var(--radius-sm) 0;
     }
 
     textarea:focus {
       outline: none;
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 4px rgba(216, 180, 254, 0.15);
-      transform: translateY(-2px);
+      border-color: var(--sky);
+      box-shadow: 0 0 0 4px rgba(79, 145, 199, 0.16);
+    }
+
+    .summary-card {
+      display: grid;
+      align-content: space-between;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--surface), var(--surface-sky));
+      border-color: var(--sky-line);
+    }
+
+    .total-value {
+      color: var(--sky-deep);
+      font-size: clamp(2rem, 7vw, 3.1rem);
+      line-height: 1;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .summary-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .summary-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      border: 1px solid var(--sky-line);
+      border-radius: 999px;
+      background: var(--surface);
+      padding: 4px 9px;
+      color: var(--sky-deep);
+      font-size: 0.8rem;
+      font-weight: 850;
+    }
+
+    .export-box-wrap {
+      display: grid;
+      gap: 12px;
+    }
+
+    .export-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .export-count {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      padding: 4px 9px;
+      color: var(--rose-deep);
+      font-size: 0.8rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .export-box-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .export-box-ta {
+      min-height: 94px;
+      resize: vertical;
+    }
+
+    .export-box-copy {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-width: 148px;
+      border-color: var(--rose);
+      background: var(--rose);
+      color: #ffffff;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .export-box-copy:hover,
+    .export-box-copy:focus-visible {
+      background: var(--rose-hover);
+      color: #ffffff;
+    }
+
+    .export-box-copy:disabled {
+      border-color: var(--line);
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .export-box-copied-msg {
+      min-height: 24px;
+      color: var(--sky-deep);
+      font-size: 0.86rem;
+      font-weight: 850;
+    }
+
+    .export-box-copied-msg.is-error {
+      color: var(--danger);
+    }
+
+    .export-box-copied-msg[hidden] {
+      display: none;
+    }
+
+    .section-block {
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
     }
 
     .cards {
       display: flex;
-      gap: 1.25rem;
       flex-wrap: wrap;
-      margin-bottom: 2.5rem;
-      justify-content: center;
+      gap: 10px;
     }
 
     .cardtype {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: 1rem 1.5rem;
-      border: 2px solid var(--border-color);
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cardtype::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706);
-      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-    }
-
-    .cardtype:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: var(--shadow-lg);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 7px;
+      min-height: 38px;
+      border: 1px solid var(--sky-line);
+      border-radius: 999px;
+      background: var(--surface-sky);
+      padding: 7px 12px;
+      color: var(--text-soft);
+      box-shadow: var(--shadow-sm);
     }
 
     .cardtype strong {
-      color: var(--text-accent);
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-right: 0.5rem;
+      color: var(--sky-deep);
+      font-weight: 900;
     }
 
     .cardtype span {
-      color: var(--text-secondary);
-      font-weight: 500;
+      font-size: 0.88rem;
+      font-weight: 750;
+    }
+
+    #results {
+      display: grid;
+      gap: 14px;
     }
 
     .userblock {
-      margin-bottom: 2.5rem;
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      box-shadow: var(--shadow-md);
-      border: 2px solid var(--border-color);
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .userblock::before {
-      content: '💖';
-      position: absolute;
-      top: -8px;
-      right: 20px;
-      background: var(--bg-secondary);
-      padding: 0 8px;
-      font-size: 1.2rem;
-    }
-
-    .userblock:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-2px);
+      overflow: hidden;
     }
 
     .userhead {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border-color);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, var(--surface), var(--surface-soft));
     }
 
     .username {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-accent);
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 8px;
+      min-width: 0;
+      color: var(--rose-deep);
+      font-size: 1.1rem;
+      font-weight: 900;
+      overflow-wrap: anywhere;
     }
 
     .username::before {
-      content: '🌟';
-      font-size: 1.2rem;
+      content: "";
+      flex: 0 0 auto;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--rose);
+      box-shadow: 13px 0 0 var(--sky);
     }
 
     .usertypes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+      max-width: 420px;
       color: var(--text-muted);
-      font-size: 0.9rem;
-      background: var(--bg-tertiary);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    .type-chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      padding: 4px 8px;
+      font-weight: 850;
+    }
+
+    .userbody {
+      display: grid;
+      gap: 14px;
+      padding: 16px 18px 18px;
     }
 
     .usersum {
-      background: var(--bg-success);
-      color: var(--text-primary);
-      border-radius: var(--radius-lg);
-      font-size: 1.3rem;
-      font-weight: 700;
-      padding: 1rem 2rem;
-      margin-bottom: 1.5rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
-      box-shadow: var(--shadow-md);
-      border: 2px solid #65a30d;
+      gap: 8px;
+      width: max-content;
+      max-width: 100%;
+      border: 1px solid var(--sky-line);
+      border-radius: var(--radius-sm);
+      background: var(--surface-sky);
+      padding: 9px 12px;
+      color: var(--sky-deep);
+      font-size: 1.12rem;
+      font-weight: 900;
+      overflow-wrap: anywhere;
     }
 
-    .usersum::before {
-      content: '💰';
-      font-size: 1.4rem;
+    .usersum i {
+      color: var(--sky);
+    }
+
+    .usertablescroll {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
     }
 
     .usertable {
-      background: var(--bg-tertiary);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--surface);
+      font-size: 0.92rem;
     }
 
     .usertable th,
     .usertable td {
-      padding: 1.25rem;
+      padding: 12px 14px;
       text-align: left;
+      vertical-align: top;
     }
 
     .userthead th {
-      background: var(--bg-button);
-      color: var(--text-white);
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.025em;
+      background: var(--surface-sky);
+      color: var(--sky-deep);
+      font-size: 0.78rem;
+      font-weight: 900;
       text-transform: uppercase;
     }
 
     .usertbody td {
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .usertbody tr:last-child td {
-      border-bottom: none;
+      border-top: 1px solid var(--line);
+      color: var(--text-soft);
     }
 
     .usertbody tr:hover {
-      background: var(--bg-input);
+      background: var(--input);
     }
 
-    .usertablescroll {
-      overflow-x: auto;
-    }
-
-    .totals {
-      background: var(--bg-card);
-      border: 3px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: 2rem;
-      margin: 3rem auto;
-      max-width: 600px;
-      text-align: center;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text-accent);
-      box-shadow: var(--shadow-lg);
-      position: relative;
-    }
-
-    .totals::before {
-      content: '🎀';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-secondary);
-      padding: 0 12px;
-      font-size: 1.5rem;
-    }
-
-    .export-box-wrap {
-      margin: 3rem auto;
-      max-width: 600px;
-      background: var(--bg-card);
-      border: 2px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-lg);
-      padding: 2rem;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .export-box-wrap::before {
-      content: '📝';
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      background: var(--bg-secondary);
-      padding: 0 8px;
-      font-size: 1.3rem;
-    }
-
-    .export-box-wrap:hover {
-      box-shadow: var(--shadow-xl);
-      transform: translateY(-2px);
-    }
-
-    .export-box-label {
-      color: var(--text-accent);
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .export-box-row {
-      display: flex;
-      gap: 1.25rem;
-      align-items: flex-start;
-    }
-
-    .export-box-ta {
-      flex: 1;
-      height: 90px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.9rem;
-      border-radius: var(--radius-lg);
-      border: 2px solid var(--border-color);
-      padding: 1.25rem;
-      background: var(--bg-input);
-      color: var(--text-primary);
-      resize: vertical;
-      transition: all 0.3s ease;
-    }
-
-    .export-box-ta::-webkit-resizer {
-      background: var(--border-color);
-      border-radius: 0 0 var(--radius-lg) 0;
-    }
-
-    .export-box-ta:focus {
-      outline: none;
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 4px rgba(216, 180, 254, 0.15);
-    }
-
-    .export-box-copy {
-      padding: 1.25rem 2rem;
-      background: var(--bg-button);
-      color: var(--text-white);
-      border: none;
-      border-radius: var(--radius-lg);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: var(--shadow-md);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .amount-cell {
+      color: var(--sky-deep);
+      font-weight: 900;
       white-space: nowrap;
     }
 
-    .export-box-copy:hover {
-      background: var(--bg-button-hover);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
+    .state-message {
+      padding: 16px;
+      color: var(--text-soft);
     }
 
-    .export-box-copy:active {
-      transform: translateY(0);
+    .cards .state-message {
+      flex: 1 1 100%;
     }
 
-    .export-box-copied-msg {
-      color: #10b981;
+    .state-message strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+
+    .state-message i {
+      color: var(--rose);
+      margin-right: 8px;
+    }
+
+    .state-error {
+      border-color: var(--danger);
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .state-error strong,
+    .state-error i {
+      color: var(--danger);
+    }
+
+    .empty-row {
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-sm);
+      background: var(--input);
+      padding: 14px;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      animation: fadeInOut 0.8s ease-in-out;
     }
 
     .footer {
-      margin-top: 4rem;
-      padding-top: 2.5rem;
-      border-top: 2px solid var(--border-color);
-      text-align: center;
+      padding: 22px;
+      border-top: 1px solid var(--line);
       color: var(--text-muted);
-      font-size: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
     }
 
-    .footer::before {
-      content: '🌈';
-      margin-right: 0.75rem;
-      font-size: 1.2rem;
+    ::selection {
+      background: rgba(79, 145, 199, 0.22);
     }
 
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; transform: translateY(10px); }
-      50% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      #mainwrap {
-        margin: 1rem;
-        padding: 2rem;
-      }
-
-      .header h1 {
-        font-size: 2.5rem;
-      }
-
-      .inputs {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .cards {
-        gap: 1rem;
-      }
-
-      .cardtype {
-        padding: 0.75rem 1.25rem;
-        font-size: 0.9rem;
-      }
-
-      .export-box-row {
-        flex-direction: column;
-      }
-
-      .export-box-copy {
-        align-self: flex-start;
-      }
-
-      .theme-toggle {
-        top: 15px;
-        right: 15px;
-        width: 45px;
-        height: 45px;
-      }
-    }
-
-    /* Custom scrollbar */
     ::-webkit-scrollbar {
       width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg-tertiary);
-      border-radius: var(--radius-md);
+      background: var(--surface-soft);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--text-accent);
-      border-radius: var(--radius-md);
+      background: var(--line-strong);
+      border-radius: 999px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--border-focus);
+      background: var(--rose);
     }
 
-    /* Selection */
-    ::selection {
-      background: rgba(216, 180, 254, 0.3);
+    @media (max-width: 860px) {
+      .page {
+        padding: 14px;
+      }
+
+      .hero,
+      .content {
+        padding: 18px;
+      }
+
+      .hero,
+      .input-sheet,
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-badge {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .export-box-row {
+        grid-template-columns: 1fr;
+      }
+
+      .export-box-copy {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 620px) {
+      body {
+        background-size: 28px 28px;
+      }
+
+      .page {
+        padding: 10px;
+      }
+
+      .topbar {
+        margin-bottom: 10px;
+      }
+
+      .home-link span {
+        display: none;
+      }
+
+      .home-link {
+        width: 44px;
+        justify-content: center;
+        padding: 0;
+      }
+
+      .shell {
+        border-radius: var(--radius-md);
+      }
+
+      .hero,
+      .content,
+      .footer {
+        padding: 14px;
+      }
+
+      h1 {
+        align-items: flex-start;
+      }
+
+      .subtitle {
+        font-size: 0.93rem;
+      }
+
+      .panel,
+      .summary-card,
+      .export-box-wrap {
+        padding: 14px;
+      }
+
+      #dataInput {
+        min-height: 184px;
+      }
+
+      .section-header,
+      .export-box-header,
+      .userhead {
+        align-items: stretch;
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+
+      .usertypes {
+        justify-content: flex-start;
+        max-width: none;
+      }
+
+      .userbody {
+        padding: 14px;
+      }
+
+      .usersum {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .usertablescroll {
+        border: 0;
+        overflow: visible;
+      }
+
+      .usertable,
+      .usertable thead,
+      .usertable tbody,
+      .usertable tr,
+      .usertable td {
+        display: block;
+        width: 100%;
+        min-width: 0;
+      }
+
+      .usertable {
+        background: transparent;
+      }
+
+      .userthead {
+        display: none;
+      }
+
+      .usertbody {
+        display: grid;
+        gap: 10px;
+      }
+
+      .usertbody tr {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: var(--surface);
+        overflow: hidden;
+      }
+
+      .usertbody td {
+        display: grid;
+        grid-template-columns: 88px minmax(0, 1fr);
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding: 10px 12px;
+      }
+
+      .usertbody td:first-child {
+        border-top: 0;
+      }
+
+      .usertbody td::before {
+        content: attr(data-label);
+        color: var(--text-muted);
+        font-size: 0.74rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
     }
   </style>
 </head>
 <body>
-  <a class="home-link" href="/">Home</a>
+  <div class="page">
+    <div class="topbar" aria-label="Навигация">
+      <a class="home-link" href="/" aria-label="Home">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span>Home</span>
+      </a>
 
-  <div class="theme-toggle" onclick="toggleTheme()">
-    <i class="fas fa-moon" id="theme-icon"></i>
-  </div>
-
-  <div id="mainwrap">
-    <div class="header">
-      <h1>💳 Shop Helper</h1>
-      <div class="subtitle">
-        <i class="fas fa-info-circle"></i>
-        Вставьте данные и пользователей. Все строки пользователей автоматически включаются в результат экспорта.
-      </div>
+      <button class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Переключить тему" aria-pressed="false">
+        <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
+      </button>
     </div>
 
-    <div class="inputs">
-      <div class="input-group">
-        <label><i class="fas fa-users"></i> Пользователи (по одному на строку):</label>
-        <textarea id="usersInput" rows="3" placeholder="@username1&#10;@username2"></textarea>
-      </div>
-      <div class="input-group">
-        <label><i class="fas fa-database"></i> Исходные данные:</label>
-        <textarea id="dataInput" rows="8" placeholder="Вставьте пост с оплатой..."></textarea>
-      </div>
-    </div>
+    <main class="shell" id="mainwrap">
+      <header class="hero">
+        <div>
+          <div class="eyebrow">community checkout</div>
+          <h1><span class="title-mark" aria-hidden="true">✦</span> Shop Helper</h1>
+          <p class="subtitle">Вставьте пользователей и исходный пост, затем проверьте сумму и скопируйте экспорт.</p>
+        </div>
+        <div class="hero-badge" aria-live="polite">
+          <strong id="hero-count">0</strong>
+          <span>строк в экспорте</span>
+        </div>
+      </header>
 
-    <div class="cards" id="pricing"></div>
+      <div class="content">
+        <section class="input-sheet" aria-label="Данные для расчета">
+          <div class="panel input-group">
+            <label for="usersInput"><i class="fas fa-users" aria-hidden="true"></i> Пользователи</label>
+            <textarea id="usersInput" rows="4" placeholder="@username1&#10;@username2" aria-describedby="usersHint"></textarea>
+            <p class="field-hint" id="usersHint">Один пользователь на строку.</p>
+          </div>
 
-    <div class="totals" id="totals"></div>
+          <div class="panel input-group">
+            <label for="dataInput"><i class="fas fa-receipt" aria-hidden="true"></i> Исходные данные</label>
+            <textarea id="dataInput" rows="9" placeholder="Вставьте пост с оплатой..." aria-describedby="dataHint"></textarea>
+            <p class="field-hint" id="dataHint">Секция «учеты» используется для цен карт.</p>
+          </div>
+        </section>
 
-    <div class="export-box-wrap">
-      <div class="export-box-label">
-        Текст-экспорт всех строк пользователей (<span id="export-count">0</span> строк):
+        <section class="summary-grid" aria-label="Сводка и экспорт">
+          <div class="summary-card">
+            <div>
+              <div class="summary-label">Общая сумма</div>
+              <div class="total-value" id="totals">0 р</div>
+            </div>
+            <div class="summary-meta" id="summaryMeta">
+              <span class="summary-pill"><i class="fas fa-list-ol" aria-hidden="true"></i> 0 строк</span>
+              <span class="summary-pill"><i class="fas fa-user" aria-hidden="true"></i> 0 пользователей</span>
+            </div>
+          </div>
+
+          <div class="export-box-wrap">
+            <div class="export-box-header">
+              <div class="export-box-label">
+                <i class="fas fa-file-export" aria-hidden="true"></i>
+                Текст-экспорт
+              </div>
+              <span class="export-count"><span id="export-count">0</span> строк</span>
+            </div>
+            <div class="export-box-row">
+              <textarea class="export-box-ta" readonly id="exportTxt" placeholder="Результат экспорта появится здесь..." aria-label="Текст экспорта"></textarea>
+              <button class="export-box-copy" type="button" id="copyBtn" disabled>
+                <i class="fas fa-copy" aria-hidden="true"></i>
+                Копировать
+              </button>
+            </div>
+            <div class="export-box-copied-msg" id="copyMsg" hidden></div>
+          </div>
+        </section>
+
+        <section class="section-block" aria-label="Цены карт">
+          <div class="section-header">
+            <h2><i class="fas fa-tags" aria-hidden="true"></i> Цены карт</h2>
+            <p class="section-note" id="pricingNote">Появятся после вставки исходных данных.</p>
+          </div>
+          <div class="cards" id="pricing"></div>
+        </section>
+
+        <section class="section-block" aria-label="Результаты по пользователям">
+          <div class="section-header">
+            <h2><i class="fas fa-star" aria-hidden="true"></i> Пользователи</h2>
+            <p class="section-note" id="resultsNote">Добавьте пользователей и исходные данные.</p>
+          </div>
+          <div id="results"></div>
+        </section>
       </div>
-      <div class="export-box-row">
-        <textarea class="export-box-ta" readonly id="exportTxt" placeholder="Результат экспорта появится здесь..."></textarea>
-        <button class="export-box-copy" id="copyBtn">
-          <i class="fas fa-copy"></i>
-          Копировать
-        </button>
-      </div>
-      <div class="export-box-copied-msg" id="copyMsg" style="display:none">
-        <i class="fas fa-check"></i>
-        Скопировано!
-      </div>
-    </div>
 
-    <div id="results"></div>
-
-    <div class="footer">
-      Made with love for K-pop community
-    </div>
+      <footer class="footer">
+        Made with love for K-pop community
+      </footer>
+    </main>
   </div>
 
   <script>
-    // Theme management
     function toggleTheme() {
       const html = document.documentElement;
       const themeIcon = document.getElementById('theme-icon');
+      const themeToggle = document.querySelector('.theme-toggle');
       const currentTheme = html.getAttribute('data-theme');
-      
+
       if (currentTheme === 'dark') {
         html.removeAttribute('data-theme');
         themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-pressed', 'false');
         localStorage.setItem('theme', 'light');
       } else {
         html.setAttribute('data-theme', 'dark');
         themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-pressed', 'true');
         localStorage.setItem('theme', 'dark');
       }
     }
 
-    // Load saved theme
     function loadTheme() {
       const savedTheme = localStorage.getItem('theme');
       const themeIcon = document.getElementById('theme-icon');
-      
+      const themeToggle = document.querySelector('.theme-toggle');
+
       if (savedTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-pressed', 'true');
       }
     }
 
@@ -720,8 +1007,12 @@
     const usersInput = document.getElementById("usersInput");
     const dataInput = document.getElementById("dataInput");
     const pricingDiv = document.getElementById("pricing");
+    const pricingNote = document.getElementById("pricingNote");
     const resultsDiv = document.getElementById("results");
+    const resultsNote = document.getElementById("resultsNote");
     const totalsDiv = document.getElementById("totals");
+    const summaryMeta = document.getElementById("summaryMeta");
+    const heroCount = document.getElementById("hero-count");
     const exportTxt = document.getElementById("exportTxt");
     const exportCount = document.getElementById("export-count");
     const copyBtn = document.getElementById("copyBtn");
@@ -749,14 +1040,14 @@
         Object.keys(prices).forEach(k => userInfo[u].count[k]=0);
       });
 
+      if (usernamesToTrack.length === 0) return {prices, userInfo};
+
       const usernamesPattern = usernamesToTrack.map(u=>u.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join('|');
       const cardTypesPattern = Object.keys(prices).map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join('|');
       const regexp = new RegExp(`(\\d+)\\.?\\s+(${usernamesPattern})\\s*-\\s*((?:\\d+(${cardTypesPattern})\\+?)*)`, "g");
 
       let curGroup = "Без группы";
-      let lineNum = 0;
       raw.split('\n').forEach(line=>{
-        lineNum++;
         const groupMatch = line.match(/^#(\S+)/);
         if(groupMatch) curGroup = line.trim();
 
@@ -796,77 +1087,146 @@
       return {prices, userInfo};
     }
 
-    function renderPricing(prices){
-      pricingDiv.innerHTML = "";
-      Object.entries(prices).forEach(([type, price])=>{
-        let n = document.createElement("div");
-        n.className = "cardtype";
-        n.innerHTML = `<strong>${type}</strong> <span>(${price} р)</span>`;
-        pricingDiv.appendChild(n);
-      });
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
     function numberFormat(n) {
       return (n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ");
     }
 
+    function renderState(target, title, text, isError) {
+      target.innerHTML = `
+        <div class="state-message${isError ? " state-error" : ""}">
+          <strong><i class="fas fa-${isError ? "triangle-exclamation" : "star"}" aria-hidden="true"></i>${escapeHtml(title)}</strong>
+          <span>${escapeHtml(text)}</span>
+        </div>
+      `;
+    }
+
+    function resetCopyMessage() {
+      copyMsg.hidden = true;
+      copyMsg.textContent = "";
+    }
+
+    function updateSummary(total, rows, users) {
+      totalsDiv.textContent = `${numberFormat(total)} р`;
+      heroCount.textContent = rows;
+      summaryMeta.innerHTML = `
+        <span class="summary-pill"><i class="fas fa-list-ol" aria-hidden="true"></i> ${numberFormat(rows)} строк</span>
+        <span class="summary-pill"><i class="fas fa-user" aria-hidden="true"></i> ${numberFormat(users)} пользователей</span>
+      `;
+    }
+
+    function renderPricing(prices){
+      pricingDiv.innerHTML = "";
+      const entries = Object.entries(prices);
+      pricingNote.textContent = entries.length ? `${entries.length} типов карт` : "Появятся после вставки исходных данных.";
+
+      entries.forEach(([type, price])=>{
+        let n = document.createElement("div");
+        n.className = "cardtype";
+        n.innerHTML = `<strong>${escapeHtml(type)}</strong><span>${numberFormat(price)} р</span>`;
+        pricingDiv.appendChild(n);
+      });
+    }
+
     function renderUsersTables(userInfo){
       resultsDiv.innerHTML = "";
       let total_sum = 0;
-      for(const [username, info] of Object.entries(userInfo)) {
+      let totalRows = 0;
+      const users = Object.entries(userInfo);
+
+      if (users.length === 0) {
+        resultsNote.textContent = "Добавьте пользователей для расчета строк.";
+        renderState(resultsDiv, "Пока нет пользователей", "Введите один или несколько @username слева.", false);
+        return { total: 0, rows: 0, users: 0 };
+      }
+
+      users.forEach(([username, info]) => {
         total_sum += info.total_money;
+        totalRows += info.entries.length;
+
         let div = document.createElement('div');
         div.className = "userblock";
-        let types = Object.entries(info.count).filter(([t,c])=>c>0).map(([t,c])=>`${c}${t}`).join(", ");
-        
+        const types = Object.entries(info.count).filter(([t,c])=>c>0);
+        const typeHtml = types.length
+          ? types.map(([t,c])=>`<span class="type-chip">${numberFormat(c)}${escapeHtml(t)}</span>`).join("")
+          : `<span class="type-chip">нет найденных карт</span>`;
+
         div.innerHTML = `
           <div class="userhead">
-            <div class="username">${username}</div>
-            <div class="usertypes">${types}</div>
+            <div class="username">${escapeHtml(username)}</div>
+            <div class="usertypes">${typeHtml}</div>
           </div>
-          <div class="usersum">${numberFormat(info.total_money)} р</div>
+          <div class="userbody">
+            <div class="usersum"><i class="fas fa-ruble-sign" aria-hidden="true"></i>${numberFormat(info.total_money)} р</div>
+          </div>
         `;
-        
-        let tableWrap = document.createElement('div'); 
+
+        const body = div.querySelector('.userbody');
+
+        if (info.entries.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-row';
+          empty.textContent = 'Строки для этого пользователя пока не найдены.';
+          body.appendChild(empty);
+          resultsDiv.appendChild(div);
+          return;
+        }
+
+        let tableWrap = document.createElement('div');
         tableWrap.className = "usertablescroll";
         let table = document.createElement('table');
         table.className = "usertable";
         table.innerHTML = `
           <thead class="userthead">
             <tr>
-              <th><i class="fas fa-hashtag"></i> #</th>
-              <th><i class="fas fa-layer-group"></i> Группа</th>
-              <th><i class="fas fa-credit-card"></i> Карты</th>
-              <th><i class="fas fa-ruble-sign"></i> Сумма</th>
+              <th><i class="fas fa-hashtag" aria-hidden="true"></i> #</th>
+              <th><i class="fas fa-layer-group" aria-hidden="true"></i> Группа</th>
+              <th><i class="fas fa-credit-card" aria-hidden="true"></i> Карты</th>
+              <th><i class="fas fa-ruble-sign" aria-hidden="true"></i> Сумма</th>
             </tr>
           </thead>
           <tbody class="usertbody"></tbody>
         `;
-        
-        info.entries.forEach((entry, idx)=>{
+
+        info.entries.forEach((entry)=>{
           let tr = document.createElement('tr');
           tr.className = "userline";
           tr.setAttribute('data-user', username);
           tr.setAttribute('data-id', entry.line_id);
           tr.setAttribute('data-table-index', entry.tableIndex);
           tr.tabIndex = 0;
-          tr.innerHTML = `<td>${entry.line_number}</td>
-            <td>${entry.group}</td>
-            <td>${entry.items}</td>
-            <td style="color:#14b8a6;font-weight:700">${numberFormat(entry.amount)} р</td>`;
+          tr.innerHTML = `
+            <td data-label="#">${entry.line_number}</td>
+            <td data-label="Группа">${escapeHtml(entry.group)}</td>
+            <td data-label="Карты">${escapeHtml(entry.items)}</td>
+            <td data-label="Сумма" class="amount-cell">${numberFormat(entry.amount)} р</td>
+          `;
           table.querySelector('tbody').appendChild(tr);
         });
         tableWrap.appendChild(table);
-        div.appendChild(tableWrap);
+        body.appendChild(tableWrap);
         resultsDiv.appendChild(div);
-      }
-      totalsDiv.textContent = `Общая сумма по всем пользователям: ${numberFormat(total_sum)} р`;
+      });
+
+      const matchedUsers = users.filter(([, info]) => info.entries.length > 0).length;
+      resultsNote.textContent = totalRows
+        ? `${numberFormat(totalRows)} строк у ${numberFormat(matchedUsers)} пользователей`
+        : "Совпадения по введенным пользователям не найдены.";
+
+      return { total: total_sum, rows: totalRows, users: users.length };
     }
 
     function renderExportTextBox(userInfo) {
       const usernames = usersInput.value.split("\n").map(x=>x.trim()).filter(Boolean);
 
-      // Собрать результат по формату: line_numbers, enter, user, enter, ...
       let count = 0;
       let results = [];
       for (let user of usernames) {
@@ -881,37 +1241,71 @@
       }
       exportTxt.value = results.join("\n");
       exportCount.textContent = count;
+      copyBtn.disabled = exportTxt.value.trim().length === 0;
+      resetCopyMessage();
+      return count;
+    }
+
+    function renderEmpty() {
+      pricingDiv.innerHTML = "";
+      pricingNote.textContent = "Появятся после вставки исходных данных.";
+      renderState(resultsDiv, "Готово к расчету", "Добавьте пользователей и исходный пост.", false);
+      resultsNote.textContent = "Добавьте пользователей и исходные данные.";
+      exportTxt.value = "";
+      exportCount.textContent = "0";
+      copyBtn.disabled = true;
+      resetCopyMessage();
+      updateSummary(0, 0, 0);
+    }
+
+    function renderError(message) {
+      pricingDiv.innerHTML = "";
+      pricingNote.textContent = "Проверьте исходные данные.";
+      renderState(pricingDiv, "Не удалось разобрать цены", message, true);
+      renderState(resultsDiv, "Расчет остановлен", "Исправьте исходные данные, и результат обновится автоматически.", true);
+      resultsNote.textContent = "Есть ошибка в исходных данных.";
+      exportTxt.value = "";
+      exportCount.textContent = "0";
+      copyBtn.disabled = true;
+      resetCopyMessage();
+      updateSummary(0, 0, 0);
     }
 
     function rerender(){
-      let usernames = usersInput.value.split("\n").map(x=>x.trim()).filter(Boolean);
-      let raw = dataInput.value;
-      let parsed = parseData(raw, usernames);
+      const usernames = usersInput.value.split("\n").map(x=>x.trim()).filter(Boolean);
+      const raw = dataInput.value;
 
-      if(parsed.error){
-        pricingDiv.innerHTML = `<span style="color:#be123c;font-size:1.12em">${parsed.error}</span>`;
-        resultsDiv.innerHTML = "";
-        totalsDiv.textContent="";
-        exportTxt.value = "";
-        exportCount.textContent = "0";
+      if (!raw.trim()) {
+        renderEmpty();
         return;
       }
+
+      const parsed = parseData(raw, usernames);
+
+      if(parsed.error){
+        renderError(parsed.error);
+        return;
+      }
+
       renderPricing(parsed.prices);
-      renderUsersTables(parsed.userInfo);
-      renderExportTextBox(parsed.userInfo);
+      const totals = renderUsersTables(parsed.userInfo);
+      const exportRows = renderExportTextBox(parsed.userInfo);
+      updateSummary(totals.total, exportRows, totals.users);
     }
 
     usersInput.addEventListener("input", rerender);
     dataInput.addEventListener("input", rerender);
 
     function showCopyMessage(message, ok) {
-      copyMsg.innerHTML = `<i class="fas fa-${ok ? "check" : "exclamation-triangle"}"></i> ${message}`;
-      copyMsg.style.display = "";
-      setTimeout(()=>copyMsg.style.display="none",1200);
+      copyMsg.className = `export-box-copied-msg${ok ? "" : " is-error"}`;
+      copyMsg.innerHTML = `<i class="fas fa-${ok ? "check" : "triangle-exclamation"}" aria-hidden="true"></i> ${escapeHtml(message)}`;
+      copyMsg.hidden = false;
+      setTimeout(()=>copyMsg.hidden=true,1400);
     }
 
     copyBtn.addEventListener("click", async function(){
       try {
+        if (!exportTxt.value.trim()) return;
         if (navigator.clipboard && window.isSecureContext) {
           await navigator.clipboard.writeText(exportTxt.value);
         } else {
@@ -926,10 +1320,7 @@
       }
     });
 
-    // Load theme on page load
     loadTheme();
-
-    // Initialize
     rerender();
   </script>
 </body>
